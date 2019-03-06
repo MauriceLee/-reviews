@@ -4,22 +4,72 @@ with open('reviews.txt', 'r') as f:
     for line in f:
         data.append(line)
         count += 1
-        if count % 100000 == 0:
+        if count % 200000 == 0:
             print(len(data))
-
 print('檔案讀取完了, 總共有', len(data), ' 筆資料')
 
-sum_len = 0
+print(data[0])
+
+wc = {}
 for d in data:
-    sum_len += len(d)
+    words = d.split()
+    for word in words:
+        if word in wc:
+            wc[word] += 1
+        else:
+            wc[word] = 1
 
-print('留言的平均長度為', sum_len/len(data))
+for word in wc:
+    if wc[word] > 1000000:
+        print(word, wc[word])
 
-new = []
-for d in data:
-    if len(d) < 100:
-        new.append(d)
+print(len(wc))
+print(wc['Allen'])
 
-print('一共有', len(new), '筆留言長度小於100')
-print(new[0])
-print(new[1])
+while True:
+    word = input('請問你想查什麼字: ')
+    if word == 'q':
+        break
+    if word in wc:
+        print(word, '出現過的次數為: ', wc[word])
+    else:
+        print('這個字沒有出現過喔!')
+
+print('感謝使用本查詢功能')
+
+# sum_len = 0
+# for d in data:
+#     sum_len += len(d)
+# print('留言的平均長度為', sum_len/len(data))
+
+# new = []
+# for d in data:
+#     if len(d) < 100:
+#         new.append(d)
+# print('一共有', len(new), '筆留言長度小於100')
+# print(new[0])
+# print(new[1])
+
+# good = []
+# for d in data:
+#     if 'good' in d:
+#         good.append(d)
+# print('一共有', len(good), '筆留言提到good')
+# print(good[0])
+
+# good1 = [d for d in data if 'good' in d]
+
+# good2 = []
+# for d in data:
+#     if 'good2' in d:
+#         good2.append(1)
+
+# good3 = [1 for d in data if 'good' in d]
+# print(good3)
+
+# bad = []
+# for d in data:
+#     bad.append('bad' in d)
+
+# bad1 = ['bad' in d for d in data]
+# print(bad)
